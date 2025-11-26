@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg6l1jhww4qgc"]
+
+[ext_resource type="Script" uid="uid://b41h03hffaesc" path="res://script/levelend.gd" id="1_fkg0q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4sp5i"]
+size = Vector2(2, 17.75)
+
+[node name="Levelend" type="Area2D"]
+collision_layer = 8
+script = ExtResource("1_fkg0q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.875)
+shape = SubResource("RectangleShape2D_4sp5i")
+debug_color = Color(0.8998639, 0.27354464, 0.399028, 0.41960785)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
