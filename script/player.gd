@@ -30,16 +30,16 @@ func _physics_process(delta: float) -> void:
 
 func ativar_gravidade(delta):
 	if not is_on_floor():
-		velocity += get_gravity() * delta # Correção de bug: precisa ser 'velocity.y'
+		velocity += get_gravity() * delta
 
 func mover(delta):
 	if direction:
-		velocity.x = move_toward(velocity.x, direction * SPEED, 400 * delta) # Uso de SPEED (constante)
+		velocity.x = move_toward(velocity.x, direction * speed, 400 * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, 400 * delta) # Correção lógica: 'direction' é 0, o terceiro argumento (SPEED) estava faltando ou incorreto
+		velocity.x = move_toward(velocity.x, direction, 0, 400 * delta)
 
 func atualizar_animacao():
-	direction = Input.get_axis("tras","frente") # Correção de 'input' para 'Input' e das ações para o padrão usado no seu código
+	direction = input.get_axis("left","right")
 
 func pode_pular():
 	if jump_count < MAX_JUMP:
@@ -50,29 +50,29 @@ func pode_pular():
 func pular(delta):
 	ativar_gravidade(delta)
 	mover(delta)
-	
+
+	if Input.is_action_just_pressed("pulo") and pode_pular():
+		return
+
 	if velocity.y > 0:
 		return
 
-	if Input.is_action_just_pressed("pulo") and pode_pular():
-		return # Esta função precisa de mais lógica para realmente pular, mas mantive a estrutura.
-
-func parado(delta): # Corrigido: Indentação estava incorreta, causando erro na Linha 58
+ func parado(delta):
 	ativar_gravidade(delta)
 	mover(delta)
 
 	if velocity.x != 0:
 		return
-	if Input.is_action_just_pressed("pulo"): # Corrigido: 'input' para 'Input'
+	if input.is_action_just_pressed("pulo"):
 		preparar_pulo()
 		return
 
 func preparar_pulo():
 	estado_atual = EstadoPlayer.pulando
-	animacao_player.play("pulando") # Corrigido: 'player' para 'play'
+	animacao_player.player("pulando")
 	velocity.y = JUMP_VELOCITY
 	jump_count += 1
 
-func preparar_andando(): # Corrigido: Indentação estava incorreta, causando erro na Linha 70
+func preparar_andando():
 	estado_atual = EstadoPlayer.andando
-	animacao_player.play("andando") # Corrigido: 'player' para 'play'
+	animacao_player.player("andando")
