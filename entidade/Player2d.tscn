@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://csb6icmv6yxtt"]
+[gd_scene load_steps=21 format=3 uid="uid://csb6icmv6yxtt"]
 
 [ext_resource type="Script" uid="uid://bhkwnv1ctxmwt" path="res://script/player_2d.gd" id="1_3ommx"]
 [ext_resource type="Texture2D" uid="uid://dah64j71wm5m6" path="res://sprite/blastalot-wings-alpha.png" id="1_mlnsk"]
@@ -45,6 +45,18 @@ region = Rect2(301, 0, 43, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cd36h"]
 atlas = ExtResource("1_mlnsk")
 region = Rect2(344, 0, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwamo"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(0, 0, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gtk4"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(0, 264, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3j0bx"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(0, 528, 43, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1bkfa"]
 atlas = ExtResource("1_mlnsk")
@@ -102,6 +114,20 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xwamo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gtk4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3j0bx")
+}],
+"loop": true,
+"name": &"parado",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1bkfa")
 }, {
 "duration": 1.0,
@@ -117,6 +143,7 @@ animations = [{
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 z_index = 7
+position = Vector2(-2, 2)
 collision_mask = 18
 script = ExtResource("1_3ommx")
 
@@ -130,5 +157,5 @@ z_index = 7
 position = Vector2(9, -11)
 scale = Vector2(1.0348837, 1.0227273)
 sprite_frames = SubResource("SpriteFrames_ak3kx")
-animation = &"pulando"
+animation = &"parado"
 offset = Vector2(-6.0393257, 6.3555555)

@@ -9,23 +9,28 @@ const JUMP_VELOCITY = -400.0
 enum EstadoPlayer{
 	parado,
 	andando,
-	pulando
+	pulando,
+	caindo,
 }
 var estado_atual:EstadoPlayer
 var direction = 0
 
-func _physics_process(delta: float) -> void:
-	ativar_gravidade(delta)
+func _ready()-> void:
+	preparar_parado()
 	
-	if Input.is_action_just_pressed("pulo") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	direction = Input.get_axis("tras", "frente")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
+func _physics_process(delta: float) -> void:
+	match estado_atual:
+		EstadoPlayer.parado:
+			parado(delta)
+		EstadoPlayer.andando:
+			andando(delta)
+		EstadoPlayer.pulando:
+			pulando(delta)
+		EStadoPlayer.caindo:
+			caindo(delta)
+			
+			
 	move_and_slide()
 
 func ativar_gravidade(delta):
@@ -47,7 +52,7 @@ func pode_pular():
 	else:
 		return false
 
-func pular(delta):
+func pulando(delta):
 	ativar_gravidade(delta)
 	mover(delta)
 	
@@ -67,6 +72,35 @@ func parado(delta): # Corrigido: Indentação estava incorreta, causando erro na
 		preparar_pulo()
 		return
 
+func andando(delta):
+	ativar_gravidade(delta)
+	mover(delta)
+	
+	if velocity.x == 0:
+		return
+	
+	if Input.is_action_just_pressed("pulo"):
+		preparar_pulo()
+		return
+	if not is_on_floor():
+		jump_count += 1
+		return
+
+func caindo(delta):
+	ativar_gravidade(delta)
+	mover(delta)
+	
+	if Input.is_action_just_pressed("pular") and pode_pular():
+		preparar pulo():
+		return
+	if is_on_floor():
+		if velocity.x -- 0:
+		else:
+			preparar_pulo():
+			return
+	
+	
+
 func preparar_pulo():
 	estado_atual = EstadoPlayer.pulando
 	animacao_player.play("pulando") # Corrigido: 'player' para 'play'
@@ -76,3 +110,11 @@ func preparar_pulo():
 func preparar_andando(): # Corrigido: Indentação estava incorreta, causando erro na Linha 70
 	estado_atual = EstadoPlayer.andando
 	animacao_player.play("andando") # Corrigido: 'player' para 'play'
+
+func preparar_parado(): # Corrigido: Indentação estava incorreta, causando erro na Linha 70
+	estado_atual = EstadoPlayer.parado
+	animacao_player.play("parado") # Corr
+
+func preparar_caindo():
+	estado_atual = EstadoPlayer.caindo
+	animacao_player.play(caindo)
