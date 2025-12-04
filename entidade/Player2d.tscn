@@ -6,22 +6,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qgsnr"]
 size = Vector2(33, 42)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ommx"]
-atlas = ExtResource("1_mlnsk")
-region = Rect2(0, 660, 43, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_gakfy"]
-atlas = ExtResource("1_mlnsk")
-region = Rect2(172, 660, 43, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nq0e2"]
-atlas = ExtResource("1_mlnsk")
-region = Rect2(215, 660, 43, 44)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6umkq"]
-atlas = ExtResource("1_mlnsk")
-region = Rect2(258, 660, 43, 44)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_a4qvr"]
 atlas = ExtResource("1_mlnsk")
 region = Rect2(215, 0, 43, 44)
@@ -45,6 +29,22 @@ region = Rect2(301, 0, 43, 44)
 [sub_resource type="AtlasTexture" id="AtlasTexture_cd36h"]
 atlas = ExtResource("1_mlnsk")
 region = Rect2(344, 0, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ommx"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(0, 660, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gakfy"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(172, 660, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq0e2"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(215, 660, 43, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6umkq"]
+atlas = ExtResource("1_mlnsk")
+region = Rect2(258, 660, 43, 44)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xwamo"]
 atlas = ExtResource("1_mlnsk")
@@ -74,23 +74,6 @@ region = Rect2(86, 0, 43, 44)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3ommx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_gakfy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nq0e2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6umkq")
-}],
-"loop": true,
-"name": &"atacando",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_a4qvr")
 }, {
 "duration": 1.0,
@@ -109,7 +92,24 @@ animations = [{
 "texture": SubResource("AtlasTexture_cd36h")
 }],
 "loop": true,
-"name": &"correndo",
+"name": &"andando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ommx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gakfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nq0e2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6umkq")
+}],
+"loop": true,
+"name": &"atacando",
 "speed": 5.0
 }, {
 "frames": [{
@@ -157,5 +157,5 @@ z_index = 7
 position = Vector2(9, -11)
 scale = Vector2(1.0348837, 1.0227273)
 sprite_frames = SubResource("SpriteFrames_ak3kx")
-animation = &"parado"
+animation = &"pulando"
 offset = Vector2(-6.0393257, 6.3555555)

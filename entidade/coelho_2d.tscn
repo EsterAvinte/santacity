@@ -1,0 +1,65 @@
+[gd_scene load_steps=9 format=3 uid="uid://pf846w8j87bn"]
+
+[ext_resource type="Texture2D" uid="uid://bki8ri8iqnakt" path="res://sprite/Surge.png" id="1_u1rh8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k8one"]
+size = Vector2(157, 163)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_boqsx"]
+atlas = ExtResource("1_u1rh8")
+region = Rect2(0, 0, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_blrwb"]
+atlas = ExtResource("1_u1rh8")
+region = Rect2(41, 0, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nok0s"]
+atlas = ExtResource("1_u1rh8")
+region = Rect2(82, 0, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2obb"]
+atlas = ExtResource("1_u1rh8")
+region = Rect2(123, 0, 41, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjw14"]
+atlas = ExtResource("1_u1rh8")
+region = Rect2(164, 0, 41, 30)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kbsl5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_boqsx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_blrwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nok0s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2obb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjw14")
+}],
+"loop": true,
+"name": &"pulando",
+"speed": 5.0
+}]
+
+[node name="character" type="Node2D"]
+
+[node name="Coelho" type="CharacterBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Coelho"]
+position = Vector2(-1, 52)
+shape = SubResource("RectangleShape2D_k8one")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Coelho"]
+z_index = 10
+position = Vector2(6, 55.000004)
+scale = Vector2(3.9756098, 4.7833333)
+sprite_frames = SubResource("SpriteFrames_kbsl5")
+animation = &"pulando"
+frame_progress = 0.80794394

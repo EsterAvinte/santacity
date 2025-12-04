@@ -1,0 +1,70 @@
+[gd_scene load_steps=6 format=3 uid="uid://by5bh8cajhyt0"]
+
+[ext_resource type="PackedScene" uid="uid://pf846w8j87bn" path="res://entidade/coelho_2d.tscn" id="1_ml6we"]
+
+[sub_resource type="Curve2D" id="Curve2D_5cqo8"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 160, -3, 0, 0, 0, 0, 174, 41, 412, 2, -412, -2, 1940, -26, 0, 0, 0, 0, 2344, -190, -292, -6, 292, 6, 2908, 56, -238, 2, 238, -2, 3134, -82, 26, 0, -26, 0, 3676, -54)
+}
+point_count = 7
+
+[sub_resource type="Animation" id="Animation_3ustu"]
+resource_name = "andando"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_uldso"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hgrgl"]
+_data = {
+&"RESET": SubResource("Animation_uldso"),
+&"andando": SubResource("Animation_3ustu")
+}
+
+[node name="Node2D" type="Node2D"]
+
+[node name="character" parent="." instance=ExtResource("1_ml6we")]
+position = Vector2(222, -85.00001)
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(-26, 30)
+curve = SubResource("Curve2D_5cqo8")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(160, -3)
+rotates = false
+loop = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D"]
+position = Vector2(88, -112.00001)
+remote_path = NodePath("../../../character")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hgrgl")
+}
+autoplay = "andando"

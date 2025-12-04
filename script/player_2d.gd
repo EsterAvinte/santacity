@@ -4,6 +4,7 @@ const MAX_JUMP = 2
 var jump_count= 0
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
+var jump_pad_max = -500
 @onready var animacao_player: AnimatedSprite2D = $AnimatedSprite2D
 
 enum EstadoPlayer{
@@ -27,24 +28,31 @@ func _physics_process(delta: float) -> void:
 			andando(delta)
 		EstadoPlayer.pulando:
 			pulando(delta)
-		EStadoPlayer.caindo:
+		EstadoPlayer.caindo:
 			caindo(delta)
-			
-			
+	
+	
 	move_and_slide()
+	
+	
 
 func ativar_gravidade(delta):
 	if not is_on_floor():
-		velocity += get_gravity() * delta # Correção de bug: precisa ser 'velocity.y'
+		velocity += get_gravity() * delta 
 
 func mover(delta):
+	atualizar_animacao()
 	if direction:
 		velocity.x = move_toward(velocity.x, direction * SPEED, 400 * delta) # Uso de SPEED (constante)
 	else:
-		velocity.x = move_toward(velocity.x, 0, 400 * delta) # Correção lógica: 'direction' é 0, o terceiro argumento (SPEED) estava faltando ou incorreto
-
+		velocity.x = move_toward(velocity.x, 0, 400 * delta)
+	
 func atualizar_animacao():
-	direction = Input.get_axis("tras","frente") # Correção de 'input' para 'Input' e das ações para o padrão usado no seu código
+	direction = Input.get_axis("tras","frente") 
+	if direction < 0:
+		animacao_player.flip_h = true
+	elif direction > 0:
+		animacao_player.flip_h = false
 
 func pode_pular():
 	if jump_count < MAX_JUMP:
@@ -57,17 +65,20 @@ func pulando(delta):
 	mover(delta)
 	
 	if velocity.y > 0:
+		preparar_caindo()
 		return
 
 	if Input.is_action_just_pressed("pulo") and pode_pular():
+		preparar_pulo()
 		return # Esta função precisa de mais lógica para realmente pular, mas mantive a estrutura.
 
-func parado(delta): # Corrigido: Indentação estava incorreta, causando erro na Linha 58
+func parado(delta):
 	ativar_gravidade(delta)
 	mover(delta)
-
+	
 	if velocity.x != 0:
 		return
+	
 	if Input.is_action_just_pressed("pulo"): # Corrigido: 'input' para 'Input'
 		preparar_pulo()
 		return
@@ -82,24 +93,28 @@ func andando(delta):
 	if Input.is_action_just_pressed("pulo"):
 		preparar_pulo()
 		return
+	
 	if not is_on_floor():
 		jump_count += 1
+		preparar_caindo()
 		return
 
 func caindo(delta):
 	ativar_gravidade(delta)
 	mover(delta)
 	
-	if Input.is_action_just_pressed("pular") and pode_pular():
-		preparar pulo():
+	if Input.is_action_just_pressed("pulo") and pode_pular():
+		preparar_pulo()
 		return
+	
 	if is_on_floor():
-		if velocity.x -- 0:
+		jump_count = 0
+	
+		if velocity.x == 0:
+			preparar_parado()
 		else:
-			preparar_pulo():
+			preparar_andando()
 			return
-	
-	
 
 func preparar_pulo():
 	estado_atual = EstadoPlayer.pulando
@@ -117,4 +132,4 @@ func preparar_parado(): # Corrigido: Indentação estava incorreta, causando err
 
 func preparar_caindo():
 	estado_atual = EstadoPlayer.caindo
-	animacao_player.play(caindo)
+	animacao_player.play("parado")
