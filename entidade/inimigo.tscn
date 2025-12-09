@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c30qbc011hb88"]
+
+[ext_resource type="Script" uid="uid://gam5r52m4r6d" path="res://script/inimigo.gd" id="1_jpbeh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4s0kw"]
+size = Vector2(42, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jpbeh"]
+size = Vector2(42, 50)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 64
+collision_mask = 3
+script = ExtResource("1_jpbeh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_4s0kw")
+debug_color = Color(0.42352942, 0.015686275, 0.23137255, 0.41960785)
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(2, 5)
+shape = SubResource("RectangleShape2D_jpbeh")
+debug_color = Color(0.8980392, 0.08235294, 0.43137255, 0.41960785)
+
+[node name="DetecontorTerreno" type="RayCast2D" parent="."]
+position = Vector2(28, 5)
+target_position = Vector2(1, 42)
+collision_mask = 2
+
+[node name="DetectorParede" type="RayCast2D" parent="DetecontorTerreno"]
+position = Vector2(-29, -3)
+target_position = Vector2(38, 0)
+collision_mask = 2
+
+[node name="DetectorPlayer" type="RayCast2D" parent="DetecontorTerreno"]
+position = Vector2(-28, 8)
+target_position = Vector2(83, 0)

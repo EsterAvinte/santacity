@@ -4,22 +4,25 @@
 [ext_resource type="Script" uid="uid://24r07ytkgh5b" path="res://script/portal.gd" id="1_gprqm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gprqm"]
-size = Vector2(16, 26)
+size = Vector2(10, 23.5)
 
 [node name="portal" type="Node2D"]
 position = Vector2(-1, 0)
 script = ExtResource("1_gprqm")
+metadata/_edit_vertical_guides_ = [9.0, -7.0]
+metadata/_edit_horizontal_guides_ = [10.0, -17.0]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1, -3)
+position = Vector2(2.9999995, -1.6250005)
+scale = Vector2(0.99999994, 1.03125)
 texture = ExtResource("1_13tmf")
 region_enabled = true
-region_rect = Rect2(240, 24, 16, 48)
+region_rect = Rect2(240, 24, 16, 24)
 
 [node name="Area2D" type="Area2D" parent="." groups=["portais"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(1, -14)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" groups=["portais"]]
+position = Vector2(3, -0.25)
 shape = SubResource("RectangleShape2D_gprqm")
 debug_color = Color(0.99472386, 0, 0.2249018, 0.41960785)
 
