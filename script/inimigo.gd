@@ -1,12 +1,16 @@
 extends CharacterBody2D
+const TIRO = preload("res://entidade/Tiro.tscn")
 
 @onready var hitbox: Area2D = $Hitbox
 @onready var detector_terreno: RayCast2D = $DetecontorTerreno
-@onready var detector_parede: RayCast2D = $DetecontorTerreno/DetectorParede
-@onready var detector_player: RayCast2D = $DetecontorTerreno/DetectorPlayer
+@onready var detector_player: RayCast2D = $DetecontorPlayer
+@onready var detector_parede: RayCast2D = $DetectorParede
+@onready var tiro_position: Node2D = $TiroPosition
+@onready var anim_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+var pode_atirar = true
 
 
-const SPEED = 10.0
+const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 enum EstadoInimigo{
 	andando,
@@ -35,6 +39,7 @@ func prepara_andando():
 func prepara_atacando():
 	estado_inimigo = EstadoInimigo.atacando
 	velocity = Vector2.ZERO
+	pode_atirar = true
 	
 
 func prepara_morrendo():
@@ -60,9 +65,18 @@ func estado_morrendo(_delta):
 	pass
 	
 func estado_atacando(_delta):
-	pass
+	atacar()
+	pode_atirar = false
 	
 func ativar_gravidade(delta):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+		
+func atacar():
+	var novo_tiro = tiro_instatiant()
+	add_sibling(novo_tiro)
+	novo_tiro.position = tiro_position.global_position
+	novo_tiro.definir_direction(self.direction)
+	
+func _on_animeted_sprite+2d_animation_finishia()
 	

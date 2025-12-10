@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://csb6icmv6yxtt"]
+[gd_scene load_steps=22 format=3 uid="uid://csb6icmv6yxtt"]
 
 [ext_resource type="Script" uid="uid://bhkwnv1ctxmwt" path="res://script/player_2d.gd" id="1_3ommx"]
 [ext_resource type="Texture2D" uid="uid://dah64j71wm5m6" path="res://sprite/blastalot-wings-alpha.png" id="1_mlnsk"]
@@ -141,6 +141,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ommx"]
+size = Vector2(33, 42)
+
 [node name="player" type="CharacterBody2D" groups=["player", "portais"]]
 z_index = 7
 collision_mask = 51
@@ -158,3 +161,14 @@ scale = Vector2(1.0348837, 1.0227273)
 sprite_frames = SubResource("SpriteFrames_ak3kx")
 animation = &"pulando"
 offset = Vector2(-6.0393257, 6.3555555)
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_mask = 192
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(2.5, -3)
+shape = SubResource("RectangleShape2D_3ommx")
+debug_color = Color(0.9464161, 5.77569e-06, 0.59021026, 0.41960785)
+
+[connection signal="area_entered" from="Hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

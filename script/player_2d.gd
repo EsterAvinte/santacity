@@ -133,3 +133,17 @@ func preparar_parado(): # Corrigido: Indentação estava incorreta, causando err
 func preparar_caindo():
 	estado_atual = EstadoPlayer.caindo
 	animacao_player.play("parado")
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("inimigos"):
+		print("player atigindo")
+	elif area.is_in_group("Tiro"):
+		print("player levou tiro")
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	 if body.is_in_group("inimigos"):
+		print("player atigindo")
+	elif body.is_in_group("Tiro"):
+		print("player levou tiro")

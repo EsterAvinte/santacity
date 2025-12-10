@@ -1,12 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://c30qbc011hb88"]
+[gd_scene load_steps=10 format=3 uid="uid://c30qbc011hb88"]
 
 [ext_resource type="Script" uid="uid://gam5r52m4r6d" path="res://script/inimigo.gd" id="1_jpbeh"]
+[ext_resource type="Texture2D" uid="uid://cnol4nxsumdjg" path="res://sprite/chicken.png" id="2_kihix"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4s0kw"]
 size = Vector2(42, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jpbeh"]
 size = Vector2(42, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_du6cv"]
+atlas = ExtResource("2_kihix")
+region = Rect2(94, 0, 94, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl0ub"]
+atlas = ExtResource("2_kihix")
+region = Rect2(188, 0, 94, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_psjqp"]
+atlas = ExtResource("2_kihix")
+region = Rect2(282, 0, 94, 89)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jaw0i"]
+atlas = ExtResource("2_kihix")
+region = Rect2(0, 89, 94, 89)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_irubi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_du6cv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl0ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_psjqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jaw0i")
+}],
+"loop": true,
+"name": &"andando",
+"speed": 5.0
+}]
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 collision_layer = 64
@@ -18,23 +55,34 @@ position = Vector2(2, 5)
 shape = SubResource("RectangleShape2D_4s0kw")
 debug_color = Color(0.42352942, 0.015686275, 0.23137255, 0.41960785)
 
-[node name="Hitbox" type="Area2D" parent="."]
+[node name="Hitbox" type="Area2D" parent="." groups=["Inimigos"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(2, 5)
+position = Vector2(2, 4)
 shape = SubResource("RectangleShape2D_jpbeh")
 debug_color = Color(0.8980392, 0.08235294, 0.43137255, 0.41960785)
 
-[node name="DetecontorTerreno" type="RayCast2D" parent="."]
+[node name="TiroPosition" type="Node2D" parent="."]
+position = Vector2(23, -5)
+
+[node name="DetectorTerreno" type="RayCast2D" parent="."]
 position = Vector2(28, 5)
 target_position = Vector2(1, 42)
 collision_mask = 2
 
-[node name="DetectorParede" type="RayCast2D" parent="DetecontorTerreno"]
-position = Vector2(-29, -3)
+[node name="DetectorPlayer" type="RayCast2D" parent="."]
+position = Vector2(0, 13)
+target_position = Vector2(83, 0)
+
+[node name="DetectorParede" type="RayCast2D" parent="."]
+position = Vector2(-1, 2)
 target_position = Vector2(38, 0)
 collision_mask = 2
 
-[node name="DetectorPlayer" type="RayCast2D" parent="DetecontorTerreno"]
-position = Vector2(-28, 8)
-target_position = Vector2(83, 0)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.99999994, 7.0000005)
+scale = Vector2(0.10904254, 0.13483146)
+sprite_frames = SubResource("SpriteFrames_irubi")
+animation = &"andando"
+frame = 2
+frame_progress = 0.77341723
